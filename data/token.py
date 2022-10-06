@@ -74,3 +74,15 @@ class Token(EQEnum):
     # Delimiters
     COMMA = compile("")
     WHITESPACE = compile("")
+
+
+class TokenInfo:
+    def __init__(self, token: Token, data: str) -> None:
+        self.token = token
+        self.data = data
+
+    def get_token(self) -> Token:
+        return self.token
+
+    def get_data(self) -> str:
+        return self.data
