@@ -1,4 +1,4 @@
-from lexer import Lexer
+from data.token import Token
 
 def main():
     return

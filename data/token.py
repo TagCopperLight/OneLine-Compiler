@@ -1,6 +1,18 @@
 from enum import Enum
 from re import compile
 
+
+class EQEnum(Enum):
+    def __eq__(self, element) -> bool:
+        if is_instance(b, str):
+            return self.name == element
+        else:
+            return self.name == element.name
+    
+    def __hash__(self):
+        return id(self.name)
+
+
 class Token(EQEnum):
     # Specials
     ILLEGAL = 'ILLEGAL'
@@ -62,14 +74,3 @@ class Token(EQEnum):
     # Delimiters
     COMMA = compile("")
     WHITESPACE = compile("")
-
-
-class EQEnum(Enum):
-    def __eq__(self, element) -> bool:
-        if is_instance(b, str):
-            return self.name == element
-        else:
-            return self.name == element.name
-    
-    def __hash__(self):
-        return id(self.name)
