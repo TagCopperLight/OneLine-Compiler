@@ -1,5 +1,6 @@
 from enum import Enum
-from re import compile
+from re import compile, IGNORECASE
+from sre_constants import IN_IGNORE
 
 
 ILLEGAL = 'ILLEGAL'
@@ -13,7 +14,7 @@ class EQEnum(Enum):
         else:
             return self.name == element.name
     
-    def __hash__(self):
+    def __hash__(self) -> int:
         return id(self.name)
 
 
@@ -31,50 +32,62 @@ class Token(EQEnum):
     L_CURLY = compile(r"\{")
     R_CURLY = compile(r"\}")
 
-    # Operators
-    ASSIGN = compile(r"\=")
-    PLUS = compile(r"")
-    MINUS = compile(r"")
-    MULT = compile(r"")
-    DIVIDE = compile(r"")
-    DIVIDE_INT = compile(r"")
-    MODULO = compile(r"")
-    POWER = compile(r"")
-
-    # Logical Operators
-    AND = compile(r"")
-    OR = compile(r"")
-    NOT = compile(r"")
+    #Arithmetic Operators
+    PLUS = compile(r"\+")
+    MINUS = compile(r"\-")
+    MULT = compile(r"\*")
+    DIVIDE_INT = compile(r"//")
+    DIVIDE = compile(r"/")
+    MODULO = compile(r"%")
+    POWER = compile(r"\^")
 
     # Conditionnal Operators
-    EQ = compile(r"")
-    NEQ = compile(r"")
-    LOWER = compile(r"")
-    HIGHER = compile(r"")
-    EQLOWER = compile(r"")
-    EQHIGHER = compile(r"")
+    EQ = compile(r"\=\=")
+    NEQ = compile(r"!\=")
+    EQLOWER = compile(r"<\=")
+    EQHIGHER = compile(r">\=")
+    LOWER = compile(r"<")
+    HIGHER = compile(r">")
+
+    # Logical Operators
+    AND = compile(r"&|and", IGNORECASE)
+    OR = compile(r"\||or", IGNORECASE)
+    NOT = compile(r"!|not", IGNORECASE)
+
+    # Operators
+    ASSIGN = compile(r"\=")
 
     # Keywords
-    TRUE = compile(r"")
-    FALSE = compile(r"")
-    NONE = compile(r"")
-    IF = compile(r"")
-    ELSE = compile(r"")
-    FOR = compile(r"")
-    WHILE = compile(r"")
-    DEF = compile(r"")
-    RETURN = compile(r"")
-    PRINT = compile(r"")
+    TRUE = compile(r"True")
+    FALSE = compile(r"False")
+    NONE = compile(r"None")
+
+    IF = compile(r"if")
+    ELSE = compile(r"else")
+    ELIF = compile(r"elif")
+
+    FOR = compile(r"for")
+    IN = compile(r"in")
+    WHILE = compile(r"while")
+
+    DEF = compile(r"def")
+    RETURN = compile(r"return")
+
+    PRINT = compile(r"print")
+    RANGE = compile(r"range")
 
     # Variables
-    ID = compile(r"")
+    ID = compile(r"[_a-zA-Z][_a-zA-Z0-9]*")
 
     # Comments
-    COMMENT = compile(r"")
+    COMMENT = compile(r"#.*")
 
     # Delimiters
-    COMMA = compile(r"")
-    WHITESPACE = compile(r"")
+    COMMA = compile(r",")
+    COLON = compile(r":")
+    TAB = compile(r"    |\t")
+    WHITESPACE = compile(r"(\ )+")
+    NEWLINE = compile(r"(\n)+")
 
 
 class TokenInfo:
@@ -87,3 +100,6 @@ class TokenInfo:
 
     def get_data(self) -> str:
         return self.data
+    
+    def __repr__(self) -> str:
+        return self.token

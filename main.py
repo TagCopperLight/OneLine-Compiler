@@ -1,12 +1,20 @@
 from data.lexer import Lexer
+import os
+
+os.system('cls')
 
 def main():
     lexer = Lexer()
-    data = """a = 25\nfor a in range(34):\n\tprint("salut)"""
+
+    with open('data/test.py', 'r', encoding='utf-8') as file:
+        data = file.read()
+        file.close()
+        
     lexer.set_data(data)
 
     token_list = [i for i in lexer.lexerGenerator()]
 
+    print(data)
     print(token_list)
     
 

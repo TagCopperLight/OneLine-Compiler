@@ -8,14 +8,14 @@ class Lexer:
         pos = 0
 
         while pos < len(self.data):
-            for token_id in Token:
-                if match := token_id.value.match(self.data, pos):
+            for token in Token:
+                if match := token.value.match(self.data, pos):
                     pos = match.end(0)
 
-                    if token_id == Token.WHITESPACE or token_id == Token.COMMENT:
+                    if token == Token.WHITESPACE or token == Token.COMMENT:
                         break
                     
-                    yield TokenInfo(token_id.name, match.group(0))
+                    yield TokenInfo(token.name, match.group(0))
                     break
 
             else:
