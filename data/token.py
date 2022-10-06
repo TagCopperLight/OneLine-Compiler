@@ -2,9 +2,13 @@ from enum import Enum
 from re import compile
 
 
+ILLEGAL = 'ILLEGAL'
+EOF = 'EOF'
+
+
 class EQEnum(Enum):
-    def __eq__(self, element) -> bool:
-        if is_instance(b, str):
+    def __eq__(self, element: str) -> bool:
+        if isinstance(element, str):
             return self.name == element
         else:
             return self.name == element.name
@@ -14,66 +18,63 @@ class EQEnum(Enum):
 
 
 class Token(EQEnum):
-    # Specials
-    ILLEGAL = 'ILLEGAL'
-    EOF = 'EOF'
-
     # Data types
-    STRING = compile("")
-    INT = compile("")
-    FLOAT = compile("")
+    STRING = compile(r"(\".*\")|(\'.*\')")
+    INT = compile(r"\d+")
+    FLOAT = compile(r"\d+\.\d+")
     
     # Brackets
-    L_ROUND = compile("")
-    R_ROUND = compile("")
-    L_SQUARE = compile("")
-    R_SQUARE = compile("")
-    L_CURLY = compile("")
-    R_CURLY = compile("")
+    L_ROUND = compile(r"\(")
+    R_ROUND = compile(r"\)")
+    L_SQUARE = compile(r"\[")
+    R_SQUARE = compile(r"\]")
+    L_CURLY = compile(r"\{")
+    R_CURLY = compile(r"\}")
 
     # Operators
-    PLUS = compile("")
-    MINUS = compile("")
-    MULT = compile("")
-    DIVIDE = compile("")
-    DIVIDE_INT = compile("")
-    MODULO = compile("")
-    POWER = compile("")
+    ASSIGN = compile(r"\=")
+    PLUS = compile(r"")
+    MINUS = compile(r"")
+    MULT = compile(r"")
+    DIVIDE = compile(r"")
+    DIVIDE_INT = compile(r"")
+    MODULO = compile(r"")
+    POWER = compile(r"")
 
     # Logical Operators
-    AND = compile("")
-    OR = compile("")
-    NOT = compile("")
+    AND = compile(r"")
+    OR = compile(r"")
+    NOT = compile(r"")
 
     # Conditionnal Operators
-    EQ = compile("")
-    NEQ = compile("")
-    LOWER = compile("")
-    HIGHER = compile("")
-    EQLOWER = compile("")
-    EQHIGHER = compile("")
+    EQ = compile(r"")
+    NEQ = compile(r"")
+    LOWER = compile(r"")
+    HIGHER = compile(r"")
+    EQLOWER = compile(r"")
+    EQHIGHER = compile(r"")
 
     # Keywords
-    TRUE = compile("")
-    FALSE = compile("")
-    NONE = compile("")
-    IF = compile("")
-    ELSE = compile("")
-    FOR = compile("")
-    WHILE = compile("")
-    DEF = compile("")
-    RETURN = compile("")
-    PRINT = compile("")
+    TRUE = compile(r"")
+    FALSE = compile(r"")
+    NONE = compile(r"")
+    IF = compile(r"")
+    ELSE = compile(r"")
+    FOR = compile(r"")
+    WHILE = compile(r"")
+    DEF = compile(r"")
+    RETURN = compile(r"")
+    PRINT = compile(r"")
 
     # Variables
-    ID = compile("")
+    ID = compile(r"")
 
     # Comments
-    COMMENT = compile("")
+    COMMENT = compile(r"")
 
     # Delimiters
-    COMMA = compile("")
-    WHITESPACE = compile("")
+    COMMA = compile(r"")
+    WHITESPACE = compile(r"")
 
 
 class TokenInfo:

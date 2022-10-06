@@ -1,4 +1,4 @@
-from data.token import Token, TokenInfo
+from data.token import Token, TokenInfo, ILLEGAL, EOF
 
 class Lexer:
     def __init__(self) -> None:
@@ -19,11 +19,11 @@ class Lexer:
                     break
 
             else:
-                yield TokenInfo(Token.ILLEGAL, self.data[pos])
+                yield TokenInfo(ILLEGAL, self.data[pos])
                 pos += 1
         else:
-            yield TokenInfo(Token.EOF, '\x00') 
-            yield TokenInfo(Token.EOF, '\x00')
+            yield TokenInfo(EOF, '\x00') 
+            yield TokenInfo(EOF, '\x00')
 
     def set_data(self, data: str) -> None:
         self.data = data
